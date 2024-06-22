@@ -1,0 +1,40 @@
+<div class="text-gray-900 bg-gray-200">
+  <div class="p-4 flex">
+    <!-- Messaggio di benvenuto all'economo -->
+    <h1 class="text-3xl">
+      Hello Economist {{nomeEconomo}}, here is the list of users' charge money request
+    </h1>
+  </div>
+  <!-- Lista delle richieste di ricarico -->
+  <div class="px-3 py-4 flex justify-center">
+    <table class="w-full text-md bg-white shadow-md rounded mb-4">
+      <thead class="bg-blue-950">
+        <tr>
+          <th class="text-white text-left py-3 px-2 rounded-l-lg">Name</th>
+          <th class="text-white text-left py-3 px-2">Email</th>
+          <th class="text-white text-left py-3 px-2">Request Date</th>
+          <th class="text-white text-left py-3 px-2">Amount</th>
+          <th class="text-white text-left py-3 px-2 rounded-r-lg">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let richiesta of richieste" class="border-b border-gray-700 hover:bg-blue-950">
+          <td class="py-3 px-2 font-bold">
+            <div class="inline-flex space-x-3 items-center">
+              <span class="material-icons">account_circle</span>
+              <span>{{ richiesta.nome }} {{ richiesta.cognome }}</span>
+            </div>
+          </td>
+          <td class="py-3 px-2">{{ richiesta.email }}</td>
+          <td class="py-3 px-2">{{ richiesta.dataRichiesta | date: 'mediumDate' }}</td>
+          <td class="py-3 px-2">{{ richiesta.importo | currency:'EUR' }}</td>
+          <td class="p-3 px-5 flex justify-end"><button type="button" (click)="accettaRichiesta(richiesta)"
+              class="mr-3 text-sm bg-blue-500 hover:bg-blue-300 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Accetta</button><button
+              (click)="rifiutaRichiesta(richiesta)" type="button"
+              class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Rifiuta</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

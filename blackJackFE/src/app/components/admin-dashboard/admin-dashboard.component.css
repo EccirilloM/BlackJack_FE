@@ -1,0 +1,35 @@
+.map-containerCreaTabacchi {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 30px;
+  }
+  
+  .map-frameCreaTabacchi {
+    height: 100%;
+  }
+  
+  #mapCreaTabacchi {
+    height: 100%;
+  }
+  
+  /* Configurazione della scrollbar per assicurarsi che appaia solo orizzontalmente */
+#singolar-incomes .flex {
+  overflow-y: hidden; /* Nasconde la scrollbar verticale */
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #cbd5e0;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #1a202c;
+  border-radius: 20px;
+}
+

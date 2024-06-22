@@ -1,0 +1,65 @@
+<div class="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
+  <div class="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
+    <div class="relative flex items-center space-x-4">
+      <!-- IMMAGINE DEL TIPO DI TAVOLO dinamica -->
+      <div class="relative">
+        <img [src]="getTavoloImage(tipoTavolo)" alt="" class="w-10 sm:w-16 h-10 sm:h-16 rounded-full">
+      </div>
+      <!-- TITOLO PER TIPO DI TAVOLO dinamico -->
+      <div class="flex flex-col leading-tight">
+        <div class="text-2xl mt-1 flex items-center">
+          <span class="text-white mr-3">Forum Tavolo {{ tipoTavolo }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- QUI CI SARà L'ELENCO DEI MESSAGGI -->
+  <div id="messages" class="flex flex-col p-3 overflow-y-auto">
+    <!-- Loop attraverso ciascun messaggio -->
+    <div *ngFor="let messaggio of messaggi" class="message-container my-4 w-full">
+      <div class="flex flex-col bg-slate-300 shadow-lg rounded-lg">
+        <div class="flex items-start px-4 py-2">
+          <span class="material-icons rounded-full mr-4 shadow">
+            account_circle
+          </span>
+          <div class="flex-grow">
+            <div class="flex justify-between">
+              <h2 class="text-lg font-semibold" [ngClass]="{
+        'text-black': messaggio.ruoloMittente === 'PLAYER',
+        'text-yellow-700': messaggio.ruoloMittente === 'ECONOMO',
+        'text-red-700': messaggio.ruoloMittente === 'ADMIN'
+    }">
+                {{ messaggio.usernameMittente }}
+              </h2>
+
+            </div>
+            <p class="mt-1 text-slate-800 text-sm">
+              {{ messaggio.testoMessaggio }}
+            </p>
+            <div class="text-sm text-slate-800 text-right">
+              {{ messaggio.createdAt | date:'medium' }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- INPUTBOX PER MANDARE I MESSAGGI -->
+  <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
+    <div class="relative flex">
+      <input [(ngModel)]="testoMessaggio" type="text" placeholder="Write your message!"
+        class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3">
+      <div class="absolute right-0 items-center inset-y-0 hidden sm:flex">
+        <button (click)="inviaMessaggio()" type="button"
+          class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none">
+          <span class="font-bold">Send</span>
+          <span class="material-icons h-6 w-6">
+            send
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

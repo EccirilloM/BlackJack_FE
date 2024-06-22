@@ -1,0 +1,345 @@
+<div class="antialiased bg-[#15202b] w-full min-h-screen text-slate-300 relative py-4">
+  <div class="mx-auto max-w-7xl my-10 px-2">
+    <div id="content" class="cardGrey w-full md:w-6/8 lg:w-7/8 xl:w-7/8 p-6">
+      <!-- INIZIO DATI STATISTICI GENERALI -->
+      <div id="statistics">
+        <h1 class="font-bold py-4 uppercase">Statistics</h1>
+        <div id="stats" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-black/60 to-white/5 p-6 rounded-lg">
+            <!-- Sezione numero Utenti -->
+            <div class="flex flex-row space-x-4 items-center">
+              <div id="stats-1" class="flex items-center justify-center w-10 h-10">
+                <span class="material-icons text-white text-4xl">group_add</span>
+              </div>
+              <div>
+                <p class="text-indigo-300 text-sm font-medium uppercase leading-4">Users</p>
+                <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
+                  <span>{{ numberOfUsers }}</span>
+                  <span *ngIf="numberOfUsers > 0" class="material-icons text-white text-lg">trending_up</span>
+                  <span *ngIf="numberOfUsers < 0" class="material-icons text-white text-lg">trending_down</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Sezione saldo Casinò -->
+          <div class="bg-black/60 p-6 rounded-lg">
+            <div class="flex flex-row space-x-4 items-center">
+              <div id="stats-1" class="flex items-center justify-center w-10 h-10">
+                <span class="material-icons text-white text-4xl">account_balance_wallet</span>
+              </div>
+              <div>
+                <p class="text-teal-300 text-sm font-medium uppercase leading-4">Balance</p>
+                <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
+                  <span>${{ saldo }}</span>
+                  <span *ngIf="saldo > 0" class="material-icons text-white text-lg">trending_up</span>
+                  <span *ngIf="saldo < 0" class="material-icons text-white text-lg">trending_down</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2 p-2">
+          <!-- Grafico percentuale vincita casinò -->
+          <div class="bg-white p-4 rounded-md">
+            <h2 class="text-gray-500 text-lg font-semibold pb-1">Casino Win Percentage</h2>
+            <div class="my1-"></div>
+            <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
+            <div class="chart-container" style="position: relative; height:400px; width:550px" #usersChart></div>
+          </div>
+          <!-- Grafico frequenza media di gioco per Utente -->
+          <div class="bg-white p-4 rounded-md">
+            <h2 class="text-gray-500 text-lg font-semibold pb-1">Average Play Frequency per User</h2>
+            <div class="my-1"></div>
+            <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
+            <div class="chart-container" style="position: relative; height:400px; width:550px" #commercesChart></div>
+          </div>
+        </div>
+        <div id="tooltip" class="tooltip" style="opacity:0; position: absolute; pointer-events: none;"></div>
+
+
+      </div>
+      <!-- FIne dati statistici generali -->
+      <!-- UTILIZZA QUESTO CODICE ADATTANDOLO PER L?ELENCO DELLE INCOMES -->
+      <div class="relative w-full max-w-4xl mx-auto h-72 bg-[#15202b]">
+        <div id="singolar-incomes" class="absolute inset-0 overflow-hidden">
+          <h1 class="font-bold py-4 text-slate-100 text-center uppercase">SINGOLAR INCOMES</h1>
+          <div class="flex overflow-x-auto py-2 px-4 space-x-4 scrollbar-thin h-48">
+            <div *ngFor="let mano of mani" class="bg-black/60 rounded-lg flex-none w-64 h-full">
+              <div class="flex items-center p-4 space-x-4 h-full">
+                <div class="text-3xl">💰</div>
+                <div class="flex flex-col justify-center">
+                  <p class="text-xl text-gray-300 font-bold">{{ mano.playerUsername }}</p>
+                  <p class="text-gray-500 text-sm">{{ mano.dataMano | date:'short' }}</p>
+                  <p [ngClass]="{'text-red-500': mano.importo < 0, 'text-blue-500': mano.importo > 0}"
+                    class="text-sm font-bold">
+                    {{ mano.importo | currency:'EUR':'symbol':'1.2-2' }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FIne dati statistici Singolari -->
+      <!-- Inizio Tabelle User -->
+      <div id="last-users">
+        <h1 class="font-bold py-4 uppercase">Users</h1>
+        <!-- Campo de búsqueda -->
+        <div class="relative max-w-md w-full p-4">
+          <div class="absolute top-1 left-2 inline-flex items-center p-2">
+            <i class="fas fa-search text-gray-400"></i>
+          </div>
+          <input
+            class="w-full h-10 pl-10 pr-4 py-1 text-base placeholder-gray-500 border rounded-full focus:shadow-outline"
+            type="search" placeholder="Trova">
+        </div>
+        <div class="overflow-x-scroll">
+          <table class="w-full">
+            <thead class="bg-black/60">
+              <tr>
+                <th class="text-left py-3 px-2 rounded-l-lg">Name</th>
+                <th class="text-left py-3 px-2">Email</th>
+                <th class="text-left py-3 px-2">Role</th>
+                <th class="text-left py-3 px-2">Date of Birth</th>
+                <th class="text-left py-3 px-2">Balance</th>
+                <th class="text-left py-3 px-2 rounded-r-lg">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let utente of utenti" class="border-b border-gray-700 hover:bg-blue-950">
+                <td class="py-3 px-2 font-bold">
+                  <div class="inline-flex space-x-3 items-center">
+                    <span class="material-icons">account_circle</span>
+                    <span>{{ utente.nome }} {{ utente.cognome }}</span>
+                  </div>
+                </td>
+                <td class="py-3 px-2">{{ utente.email }}</td>
+                <td class="py-3 px-2">{{ utente.ruolo }}</td>
+                <td class="py-3 px-2">{{ utente.dataNascita | date: 'mediumDate' }}</td>
+                <td class="py-3 px-2">{{ utente.saldo | currency:'EUR' }}</td>
+                <td class="py-3 px-2">
+                  <div *ngIf="utente.ruolo!= 'ADMIN'" class="inline-flex items-center space-x-3">
+                    <a title="Edit User Data" class="cursor-pointer">
+                      <span class="material-icons text-white text-lg hover:text-blue-500"
+                        (click)="toggleModalEditUserData(utente.userId)">lock_person</span>
+                    </a>
+                    <a title="Delete User" class="cursor-pointer" (click)="deleteUser(utente.userId)">
+                      <span class="material-icons text-white text-lg hover:text-red-600">block_flipped</span>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      <!-- Inizio Gestione Tabacchi -->
+      <div id="Tabacchi">
+        <h1 class="font-bold py-4 uppercase">Manage ATM</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-2">
+          <!-- MAPPA PER EVENTALE ELIMINAZIONE -->
+          <div class="bg-cardDark p-4 rounded-md h-auto">
+            <h2 class="text-gray-500 text-lg font-semibold pb-1">Map</h2>
+            <div class="my1-"></div> <!-- Espacio de separación -->
+            <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px  mb-6"></div> <!-- Línea con gradiente -->
+            <!-- Campo Nome -->
+            <div>
+              <label class="block text-sm text-white" for="nome">Inserisci indirizzo</label>
+              <input #searchInput class="w-full inputBox" name="indirizzo" id="indirizzo"
+                placeholder="Es. Via Tiburtina" required (input)="searchNominatim(searchInput.value)">
+            </div>
+            <!-- MAPPA -->
+            <div class="flex-grow relative h-96">
+              <div class="map-containerCreaTabacchi">
+                <div class="map-frameCreaTabacchi">
+                  <!-- HO MESSO COME Z-INDEX 450 PERCHè LEAFLET HA COME Z-INDEX DELLA MAPPA 400 -->
+                  <section class="relative z-[450]">
+                    <div
+                      class="absolute top-1 right-10 bg-cardBackground rounded-lg shadow-lg border border-midnight overflow-auto max-h-[70px] w-4/5">
+                      <div *ngFor="let result of searchResults" (click)="centerMapOnResult(result)"
+                        class="cursor-pointer border-b border-gray-200 last:border-b-0 hover:bg-blue-normal hover:bg-cardDark px-4 py-2">
+                        {{ result.display_name }}
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <!-- Stabilisce un'altezza per la mappa -->
+              <div id="mapCreaTabacchi" class="w-full h-full"></div>
+            </div>
+
+          </div>
+
+          <!-- FORM PER CREAZIONE DI UN TABACCHI -->
+          <div class="bg-cardDark p-4 rounded-md">
+            <h2 class="text-gray-500 text-lg font-semibold pb-1">Form to Creating an ATM</h2>
+            <div class="my-1"></div> <!-- Espacio de separación -->
+            <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div> <!-- Línea con gradiente -->
+            <!-- Campo Nome Tabacchi -->
+            <div class="mt-3">
+              <label class="block text-sm text-white" for="nome">ATM Name</label>
+              <input class="w-full inputBox" [(ngModel)]="nomeTabacchi" name="NomeTabacchi" id="NomeTabacchi"
+                placeholder="Inserisci il nome del Tabacchi" required>
+            </div>
+
+            <!-- Campo Latitudine Tabacchi -->
+            <div class="mt-3">
+              <label class="block text-sm text-white" for="cognome">Latitude</label>
+              <input type="number" class="w-full inputBox" [value]="latMarker()" name="lat" id="lat" placeholder=""
+                required>
+            </div>
+
+            <!-- Campo Longitudine Tabacchi -->
+            <div class="mt-3">
+              <label class="block text-sm text-white" for="lng">Longitude</label>
+              <input type="number" class="w-full inputBox" [value]="lngMarker()" name="lng" id="lng" placeholder=""
+                required>
+            </div>
+
+            <!-- Campo Economo Associato -->
+            <div class="mt-3">
+              <label class="block text-sm text-white">Associated Economist</label>
+              <select name="economo" id="economi" [(ngModel)]="economoSelezionatoId">
+                <option value="" selected></option>
+                <ng-container *ngFor="let economo of economi">
+                  <option class="text-black" [value]="economo.userId">{{ economo.nome | titlecase }}
+                    {{ economo.cognome | titlecase }}
+                  </option>
+                </ng-container>
+              </select>
+              <!-- <input class="w-full inputBox" [(ngModel)]="username" name="username" id="username"
+                placeholder="Inserisci il tuo username" required> -->
+            </div>
+            <!-- Bottone di Creazione -->
+            <button class="buttonBlueAction mt-3" (click)="creaTabacchi()">Create ATM</button>
+          </div>
+
+          <!-- FORM PER CREAZIONE DI ECONOMO -->
+          <div class="bg-cardDark p-4 rounded-md">
+            <h2 class="text-gray-500 text-lg font-semibold pb-1">Form to Create an Economist</h2>
+            <div class="my-1"></div> <!-- Espacio de separación -->
+            <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div> <!-- Línea con gradiente -->
+            <!-- Campo Nome -->
+            <div>
+              <label class="block text-sm text-white" for="nome">Name</label>
+              <input class="w-full inputBox" [(ngModel)]="nome" name="nome" id="nome" placeholder="Insert the Name"
+                required>
+            </div>
+
+            <!-- Campo Cognome -->
+            <div>
+              <label class="block text-sm text-white" for="cognome">Surname</label>
+              <input class="w-full inputBox" [(ngModel)]="cognome" name="cognome" id="cognome"
+                placeholder="Insert the Surname" required>
+            </div>
+
+            <!-- Campo Email -->
+            <div>
+              <label class="block text-sm text-white" for="email">Email</label>
+              <input class="w-full inputBox" [(ngModel)]="email" name="email" id="email" placeholder="Insert the email"
+                required>
+            </div>
+
+            <!-- Campo Username -->
+            <div>
+              <label class="block text-sm text-white" for="username">Username</label>
+              <input class="w-full inputBox" [(ngModel)]="username" name="username" id="username"
+                placeholder="Insert the username" required>
+            </div>
+
+            <!-- Campo Data di Nascita -->
+            <div class="mt-2">
+              <label class="block text-sm text-white" for="dataNascita">Date of Birth</label>
+              <input type="date" class="w-full inputBox" [(ngModel)]="dataNascita" name="dataNascita" id="dataNascita"
+                required>
+            </div>
+
+            <!-- Campo Password -->
+            <div class="mt-2">
+              <label class="block text-sm text-white" for="password">Password</label>
+              <input type="password" class="w-full inputBox" [(ngModel)]="password" name="password" id="password"
+                placeholder="Enter the password" required>
+            </div>
+
+            <!-- Campo Ripeti Password -->
+            <div class="mt-2">
+              <label class="block text-sm text-white" for="ripeti_password">Repeated Password</label>
+              <input type="password" class="w-full inputBox" [(ngModel)]="passwordRipetuta" name="ripeti_password"
+                id="ripeti_password" placeholder="Repeat the Password" required>
+            </div>
+
+            <!-- Bottone di Creazione -->
+            <button class="buttonBlueAction" (click)="creaEconomo()">Create Economist</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- MODALE che appare se cliccato un bottone per i filtri avanzati -->
+  <div *ngIf="showEditDataUserByAdmin"
+    class="overflow-x-hidden overflow-y-auto fixed inset-0 z-[451] outline-none focus:outline-none justify-center items-center flex text-sm">
+    <div class="relative mx-auto w-[70vw] h-[90%]">
+      <!-- INIZIA DA QUI -->
+      <div
+        class="border-0 rounded-lg shadow-lg relative flex flex-col w-full p-3 bg-white outline-none focus:outline-none ">
+        <!--header-->
+        <div class="flex items-center justify-between p-3 border-solid mb-3 border-slate-200 rounded-lg bg-gray-900">
+          <h3 class="text-xl font-semibold text-white">
+            Edit User Data
+          </h3>
+          <button
+            class="flex items-center justify-center w-10 h-10 bg-white rounded text-midnight border-midnight hover:bg-gray-100 shadow-lg"
+            (click)="showEditDataUserByAdmin=!showEditDataUserByAdmin;">
+            <span class="material-icons text-sky-800">
+              close
+            </span>
+          </button>
+        </div>
+        <!--body-->
+        <!-- Nome -->
+        <div>
+          <label for="nome" class="block text-sm font-medium text-gray-900">Name</label>
+          <input type="text" name="nome" id="nome" autocomplete="given-name" class="mt-1 w-full inputBox"
+            [(ngModel)]="nome">
+        </div>
+
+        <!-- Cognome -->
+        <div>
+          <label for="cognome" class="block text-sm font-medium text-gray-900">Surname</label>
+          <input type="text" name="cognome" id="cognome" autocomplete="cognome" class="mt-1 w-full inputBox"
+            [(ngModel)]="cognome">
+        </div>
+
+        <!-- Username -->
+        <div>
+          <label for="username" class="block text-sm font-medium text-gray-900">Username</label>
+          <input type="text" name="username" id="username" class="mt-1 w-full inputBox" [(ngModel)]="username">
+        </div>
+
+        <!-- Email-->
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-900">Email</label>
+          <input type="email" name="email" id="email" class="mt-1 w-full inputBox" [(ngModel)]="email">
+        </div>
+        <!-- FOOTER -->
+        <div
+          class="flex justify-end items-center gap-4 p-1 border-t border-solid border-slate-200 rounded-b w-full bg-white">
+          <!-- Contenitore per tutti i bottoni -->
+          <div class="flex gap-4 w-full max-w-lg justify-end">
+            <button class="buttonBlueAction w-full flex items-center justify-center" type="button"
+              (click)="adminEditUserData(); showEditDataUserByAdmin=!showEditDataUserByAdmin;">
+              Confirm <span class="material-icons">filter_alt</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showEditDataUserByAdmin" class="opacity-25 fixed inset-0 z-[450] bg-black"></div>

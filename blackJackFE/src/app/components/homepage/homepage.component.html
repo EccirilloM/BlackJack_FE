@@ -1,0 +1,16 @@
+<!-- Contenuto mostrato solo quando l'utente è autenticato -->
+<div *ngIf="(authService.isAuthenticated$ | async)">
+  <div class="flex min-h-screen bg-[#15202b]">
+
+
+    <div class="flex-none w-1/6 text-white h-screen sticky top-0 overflow-y-hidden">
+      <app-navbar></app-navbar>
+    </div>
+
+
+    <div class="flex-grow w-3/6 border border-y-0 border-gray-800 overflow-y-auto">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+</div>

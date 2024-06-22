@@ -1,0 +1,33 @@
+<div class="h-screen font-sans login bg-cover">
+  <div class="container mx-auto h-full flex flex-1 justify-center items-center">
+    <div class="w-full max-w-lg">
+      <div class="leading-loose">
+        <div class="max-w-sm m-4 p-10 bg-white bg-opacity-25 rounded shadow-xl">
+          <p class="text-white text-center text-lg font-bold">LOGIN</p>
+
+          <!-- Input per username -->
+          <div>
+            <label class="block text-sm text-white" for="username">Username</label>
+            <input class="w-full inputBox" type="text" id="username" [(ngModel)]="username"
+              placeholder="Insert your username" required>
+          </div>
+
+          <!-- Input per password -->
+          <div class="mt-2">
+            <label class="block text-sm text-white" for="password">Password</label>
+            <input class="w-full inputBox" type="password" id="password" [(ngModel)]="password"
+              placeholder="Insert Your Password" [type]="showPassword ? 'text' : 'password'" required>
+          </div>
+
+          <!-- Pulsanti di azione -->
+          <div class="mt-4">
+            <button (click)="login()" class="buttonBlueAction w-full">Login</button>
+          </div>
+          <div class="text-center mt-4">
+            <button (click)="goToRegistration()" class="buttonBlueAction w-full">Create an Account</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

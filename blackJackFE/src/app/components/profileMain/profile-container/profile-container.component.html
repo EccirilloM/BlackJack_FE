@@ -1,0 +1,12 @@
+<!-- Profilo Utente Container -->
+<div class="flex min-h-screen bg-[#15202b]">
+  <!-- Profile Side Bar -->
+  <div class="w-64 bg-gray-800 min-h-screen sidebar-fixed">
+    <app-profile-side-bar></app-profile-side-bar>
+  </div>
+
+  <!-- Main Content: Qui verranno visualizzati i componenti basati sulla navigazione della barra laterale -->
+  <div class="flex-grow bg-gray-900 overflow-y-auto">
+    <router-outlet></router-outlet>
+  </div>
+</div>

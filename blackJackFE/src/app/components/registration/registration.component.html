@@ -1,0 +1,69 @@
+<div class="h-screen font-sans registration bg-cover">
+  <div class="container mx-auto h-full flex flex-1 justify-center items-center">
+    <div class="w-full max-w-lg">
+      <div class="leading-loose">
+        <!-- Rimossi (ngSubmit) e [formGroup], usiamo (click) sul bottone di registration -->
+        <div class="max-w-sm m-4 p-10 bg-white bg-opacity-25 rounded shadow-xl">
+          <p class="text-white text-center text-lg font-bold">REGISTRATION</p>
+
+          <!-- Aggiornato per utilizzare [(ngModel)] e name -->
+          <!-- Campo Nome -->
+          <div>
+            <label class="block text-sm text-white" for="nome">Name</label>
+            <input class="w-full inputBox" [(ngModel)]="nome" name="nome" id="nome" placeholder="Insert your Name"
+              required>
+          </div>
+
+          <!-- Campo Cognome -->
+          <div>
+            <label class="block text-sm text-white" for="cognome">Surname</label>
+            <input class="w-full inputBox" [(ngModel)]="cognome" name="cognome" id="cognome"
+              placeholder="Insert you Surname" required>
+          </div>
+
+          <!-- Campo Email -->
+          <div>
+            <label class="block text-sm text-white" for="email">Email</label>
+            <input class="w-full inputBox" [(ngModel)]="email" name="email" id="email" placeholder="Insert your Email"
+              required>
+          </div>
+
+          <!-- Campo Username -->
+          <div>
+            <label class="block text-sm text-white" for="username">Username</label>
+            <input class="w-full inputBox" [(ngModel)]="username" name="username" id="username"
+              placeholder="Insert your username" required>
+          </div>
+
+          <!-- Campo Data di Nascita -->
+          <div class="mt-2">
+            <label class="block text-sm text-white" for="dataNascita">Date of Birth</label>
+            <input type="date" class="w-full inputBox" [(ngModel)]="dataNascita" name="dataNascita" id="dataNascita"
+              required>
+          </div>
+
+          <!-- Campo Password -->
+          <div class="mt-2">
+            <label class="block text-sm text-white" for="password">Password</label>
+            <input type="password" class="w-full inputBox" [(ngModel)]="password" name="password" id="password"
+              placeholder="Enter your Password" required>
+          </div>
+
+          <!-- Campo Ripeti Password -->
+          <div class="mt-2">
+            <label class="block text-sm text-white" for="ripeti_password">Repeat Password</label>
+            <input type="password" class="w-full inputBox" [(ngModel)]="passwordRipetuta" name="ripeti_password"
+              id="ripeti_password" placeholder="Repeat the password" required>
+          </div>
+
+          <!-- Bottone di Registrazione -->
+          <div class="mt-4 items-center flex justify-between">
+            <button [disabled]="password!=passwordRipetuta" (click)="register()"
+              class="buttonBlueAction">Register</button>
+            <button (click)="goToLogin()" class="buttonBlueAction">Go to Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

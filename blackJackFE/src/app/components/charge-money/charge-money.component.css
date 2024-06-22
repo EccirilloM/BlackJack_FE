@@ -1,0 +1,17 @@
+.map-containerRicaricaDenaro {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 30px;
+}
+
+.map-frameRicaricaDenaro {
+  border: 2px solid black;
+  height: 100%;
+}
+
+#mapRicaricaDenaro {
+  height: 100%;
+}

@@ -1,0 +1,172 @@
+<div class="flex flex-col items-center justify-center h-screen bg-gray-800 px-10">
+
+  <!-- Header con il bottone Close e la card del conteggio -->
+  <div class="w-full flex justify-end p-2">
+    <!-- Bottone Deviazioni Classiche -->
+    <button
+      class="flex items-center justify-center w-10 h-10 bg-white rounded-lg text-blue-500 hover:bg-gray-100 focus:outline-none mr-2"
+      (click)="toggleModalDeviazioniClassiche()">
+      <span class="material-icons">import_contacts</span>
+    </button>
+    <!-- Card Conteggio -->
+    <div
+      class="flex items-center justify-center mr-2 bg-white rounded-lg text-blue-500 px-4 py-2 hover:bg-gray-100 focus:outline-none">
+      <span class="material-icons">assessment</span>
+      <span class="ml-2">Conteggio: {{ valoreReale | number: '1.2-2' }}</span>
+    </div>
+
+    <!-- Bottone Close -->
+    <button
+      class="flex items-center justify-center w-10 h-10 bg-white rounded-lg text-blue-500 hover:bg-gray-100 focus:outline-none"
+      (click)="goToHomePage()">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+
+  <!-- MODALE che appare se cliccato un bottone delle deviazioni -->
+  <div *ngIf="showDeviazioniClassiche"
+    class="overflow-x-hidden overflow-y-auto fixed inset-0 z-[451] outline-none focus:outline-none justify-center items-center flex text-sm">
+    <div class="relative mx-auto w-[70vw] h-[90%]">
+      <!-- INIZIA DA QUI -->
+      <div
+        class="border-0 rounded-lg shadow-lg relative flex flex-col w-full p-3 bg-white outline-none focus:outline-none">
+        <!--header-->
+        <div class="flex items-center justify-between p-3 border-solid mb-3 border-slate-200 rounded-lg bg-gray-900">
+          <h3 class="text-xl font-semibold text-white">
+            Deviazioni Classiche
+          </h3>
+          <button
+            class="flex items-center justify-center w-10 h-10 bg-white rounded text-midnight border-midnight hover:bg-gray-100 shadow-lg"
+            (click)="showDeviazioniClassiche=!showDeviazioniClassiche;">
+            <span class="material-icons text-sky-800">
+              close
+            </span>
+          </button>
+        </div>
+        <!-- Contenuto della Modale -->
+        <div class="modal-images flex flex-col items-center justify-center">
+          <div class="row flex justify-center mb-4">
+            <img src="assets/tables/deviazioneClassica.png" alt="Deviazioni Classiche" class="image-large">
+          </div>
+          <div class="row flex justify-center mb-4">
+            <img src="assets/tables/deviazioneSplit.png" alt="Deviazioni Split" class="image-medium">
+          </div>
+          <div class="row flex justify-center">
+            <img src="assets/tables/deviazioneAsso.png" alt="Deviazioni Asso" class="image-medium">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showDeviazioniClassiche" class="opacity-25 fixed inset-0 z-[450] bg-black"></div>
+
+
+  <!-- Player and Dealer Section -->
+  <div class="flex justify-between items-center w-full my-8">
+    <!-- Player Card -->
+    <div class="cardWhite flex-1 mx-3 p-6 flex flex-col justify-start items-center" style="height: 600px;">
+      <h2 class="text-3xl font-bold mb-4 self-center">Player: <span>{{ playerUsername }}</span></h2>
+      <div class="self-center">
+        <h3 class="text-2xl font-bold mb-2">Cards: </h3>
+        <ng-container *ngFor="let carta of cartePlayer">
+          <div class="flex items-center justify-center mb-2">
+            <div
+              class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-yellow-500/20 text-yellow-600 py-2 px-4 text-base rounded-md">
+              <span>Suit: {{ carta.seme }}</span>
+            </div>
+            <div
+              class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-purple-500/20 text-purple-600 py-2 px-4 text-base rounded-md ml-2">
+              <span>Value: {{ carta.valore }}</span>
+            </div>
+          </div>
+        </ng-container>
+        <div class="mt-4 self-center">
+          <h3 class="text-2xl font-bold">Score:</h3>
+          <div class="w-max">
+            <div
+              class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-3 px-5 text-lg rounded-md">
+              <span>{{ scorePlayer }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Warning Card, vertically centered -->
+    <!-- Warning Card with dynamic styling based on game outcome -->
+    <div
+      class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none py-2 px-4 text-base rounded-md"
+      [ngClass]="{
+  'bg-green-500/20 text-green-600': warningMessage === 'Hai vinto!',
+  'bg-red-500/20 text-red-600': warningMessage === 'Hai perso!',
+  'bg-gray-500/20 text-gray-600': warningMessage === 'Pareggio!',
+  'hidden': !warningMessage
+}">
+      <span>{{ warningMessage }}</span>
+    </div>
+
+    <!-- Dealer Card -->
+    <div class="cardWhite flex-1 mx-3 p-6 flex flex-col justify-start items-center" style="height: 600px;">
+      <h2 class="text-3xl font-bold mb-4 self-center">Dealer</h2>
+      <div class="self-center">
+        <h3 class="text-2xl font-bold mb-2">Cards:</h3>
+        <ng-container *ngFor="let carta of carteDealer">
+          <div class="flex items-center justify-center mb-2">
+            <div
+              class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-yellow-500/20 text-yellow-600 py-2 px-4 text-base rounded-md">
+              <span>Suit: {{ carta.seme }}</span>
+            </div>
+            <div
+              class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-purple-500/20 text-purple-600 py-2 px-4 text-base rounded-md ml-2">
+              <span>Value: {{ carta.valore }}</span>
+            </div>
+          </div>
+        </ng-container>
+        <div class="mt-4 self-center">
+          <h3 class="text-2xl font-bold">Score:</h3>
+          <div class="w-max">
+            <div
+              class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-3 px-5 text-lg rounded-md">
+              <span>{{ scoreDealer }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Control Buttons, Wager, and Cash/Winning Section -->
+  <div class="flex items-end w-full">
+    <!-- Wager -->
+    <div class="flex flex-col items-center mr-12">
+      <label for="wager" class="text-white mb-2">Wager:</label>
+      <input type="number" id="wager" [(ngModel)]="wager" class="inputBox w-48" placeholder="Enter your wager"
+        [disabled]="!dealAttivo">
+    </div>
+
+    <!-- Game Control Buttons -->
+    <!-- COMMAND BUTTONS -->
+    <div class="flex space-x-4 mr-12">
+      <button *ngFor="let command of availableCommands"
+        [ngClass]="{'buttonBlueAction text-lg px-6 py-3': true, 'opacity-50': (dealAttivo && command !== 'deal') || (!dealAttivo && command === 'deal')}"
+        [disabled]="(dealAttivo && command !== 'deal') || (!dealAttivo && command === 'deal')"
+        (click)="onCommandClick(command)">
+        {{ command }}
+      </button>
+    </div>
+
+    <!-- Cash/Winning Card -->
+    <div class="cardWhite p-6 h-20 w-96">
+      <div class="flex justify-around text-center -mt-2">
+        <div>
+          <h3 class="text-lg font-medium">Cash:</h3>
+          <p>{{ playerCash }}</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-medium">Winning:</h3>
+          <p>{{ playerWinning }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

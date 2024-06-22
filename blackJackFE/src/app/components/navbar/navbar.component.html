@@ -1,0 +1,151 @@
+<!-- SIDE BAR -->
+<!-- HAI LEVATO h-auto, forse ti servirà in futuro -->
+<header class="text-white h-12 py-4">
+  <!-- Navbar (left side) -->
+  <div class="w-full overflow-y-auto h-screen pr-3">
+    <div class="overflow-y-auto h-screen pr-3">
+      <!--Logo-->
+      <img [src]="logoPath" alt="BlackJackSaferLogo" class="w-48 h-auto rounded-full">
+
+      <!-- Welcome -->
+      <button (click)="goToWelcome()"
+        [ngClass]="{ 'bg-gray-800 text-blue-300': currentRoute === 'welcome', 'bg-gray-700 text-gray-400': currentRoute !== 'welcome' }"
+        class="mt-1 w-full group flex items-center px-2 py-2 text-base leading-6 font-semibold rounded-full hover:bg-gray-800 hover:text-blue-300">
+        <span class="material-icons">
+          dashboard_customize
+        </span>
+        Welcome
+      </button>
+
+      <!-- Nav-->
+      <!-- Dashboard -->
+      <nav class="mt-2 px-2">
+        <button *ngIf="isPlayer()" (click)="goToDashboard()"
+          [ngClass]="{ 'bg-gray-800 text-blue-300': currentRoute === 'home', 'bg-gray-700 text-gray-400': currentRoute !== 'home' }"
+          class="w-full group flex items-center px-2 py-2 text-base leading-6 font-semibold rounded-full hover:bg-gray-800 hover:text-blue-300">
+          <span class="material-icons">
+            home
+          </span>
+          Home
+        </button>
+
+        <!-- Charge Money -->
+        <button *ngIf="isPlayer()" (click)="goToChargeMoney()"
+          [ngClass]="{ 'bg-gray-800 text-blue-300': currentRoute === 'home', 'bg-gray-700 text-gray-400': currentRoute !== 'home' }"
+          class="mt-1 w-full group flex items-center px-2 py-2 text-base leading-6 font-semibold rounded-full hover:bg-gray-800 hover:text-blue-300">
+          <span class="material-icons">
+            currency_exchange
+          </span>
+          Charge Money
+        </button>
+
+        <!-- Voce Forum nella Navbar -->
+        <!-- Forum Button with Dropdown Menu -->
+        <button (click)="toggleForumMenu()"
+          [ngClass]="{ 'bg-gray-800 text-blue-300': currentRoute === 'home', 'bg-gray-700 text-gray-400': currentRoute !== 'home' }"
+          class="mt-1 w-full flex items-center px-2 py-2 text-base font-semibold rounded-full hover:bg-gray-800 hover:text-blue-300 group">
+          <span class="material-icons">
+            forum
+          </span>
+          Forum
+          <!-- Icon for dropdown indication -->
+          <span class="material-icons ml-auto">
+            {{ forumMenuOpen ? 'expand_less' : 'expand_more' }}
+          </span>
+        </button>
+        <!-- Dropdown Menu -->
+        <div *ngIf="forumMenuOpen" class="bg-gray-700 text-gray-400 rounded-lg mt-1 cursor-pointer">
+          <ul class="flex flex-col">
+            <li>
+              <a (click)="goToForum(Tavolo.BASE)"
+                class="block px-2 py-2 text-white hover:bg-gray-800 hover:text-blue-300">
+                Forum BASE Table
+              </a>
+            </li>
+            <li>
+              <a (click)="goToForum(Tavolo.PREMIUM)"
+                class="block px-2 py-2 text-white hover:bg-gray-800 hover:text-blue-300">
+                Forum PREMIUM Table
+              </a>
+            </li>
+            <li>
+              <a (click)="goToForum(Tavolo.VIP)"
+                class="block px-2 py-2 text-white hover:bg-gray-800 hover:text-blue-300">
+                Forum VIP Table
+              </a>
+            </li>
+            <li>
+              <a (click)="goToForum(Tavolo.EXCLUSIVE)"
+                class="block px-2 py-2 text-white hover:bg-gray-800 hover:text-blue-300">
+                Forum EXCLUSIVE Table
+              </a>
+            </li>
+          </ul>
+        </div>
+
+
+        <!-- Admin -->
+        <button *ngIf="isAdmin()" (click)="goToAdmin()"
+          [ngClass]="{ 'bg-gray-800 text-blue-300': currentRoute === 'home', 'bg-gray-700 text-gray-400': currentRoute !== 'home' }"
+          class="mt-1 w-full group flex items-center px-2 py-2 text-base leading-6 font-semibold rounded-full hover:bg-gray-800 hover:text-blue-300">
+          <span class="material-icons">
+            admin_panel_settings
+          </span>
+          Admin
+        </button>
+
+        <!-- Economo -->
+        <button *ngIf="isEconomo()" (click)="goToEconomist()"
+          [ngClass]="{ 'bg-gray-800 text-blue-300': currentRoute === 'home', 'bg-gray-700 text-gray-400': currentRoute !== 'home' }"
+          class="mt-1 w-full group flex items-center px-2 py-2 text-base leading-6 font-semibold rounded-full hover:bg-gray-800 hover:text-blue-300">
+          <span class="material-icons">
+            price_check
+          </span>
+          Economist
+        </button>
+
+        <!-- Profile -->
+        <button (click)="goToProfile()"
+          [ngClass]="{ 'bg-gray-800 text-blue-300': currentRoute === 'profile', 'bg-gray-700 text-gray-400': currentRoute !== 'profile' }"
+          class="w-full mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-gray-800 hover:text-blue-300">
+          <span class="material-icons">
+            account_circle
+          </span>
+          Profile
+        </button>
+
+        <!-- Logout -->
+        <button (click)="logout()"
+          [ngClass]="{ 'bg-gray-800 text-blue-300': currentRoute === 'logout', 'bg-gray-700 text-gray-400': currentRoute !== 'logout' }"
+          class="w-full mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-gray-800 hover:text-blue-300">
+          <span class="material-icons">
+            logout
+          </span>
+          Logout
+        </button>
+      </nav>
+
+      <!-- Informazioni in basso a sinistra dell'utente -->
+      <div class="absolute" style="bottom: 2rem;" (click)="goToProfile()">
+        <div class="flex-shrink-0 flex hover:bg-gray-700 rounded-full px-4 py-3 mt-12 mr-2">
+          <a class="flex-shrink-0 group block">
+            <div class="flex items-center">
+              <!-- <div>
+                <img class="inline-block h-10 w-10 rounded-full" [src]="user.profileImage" alt="">
+              </div> -->
+              <div class="ml-3">
+                <p class="text-base leading-6 font-medium text-white">
+                  {{ userNome }} {{ userCognome }}
+                </p>
+                <p
+                  class="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
+                  {{ userDisplayName }}
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

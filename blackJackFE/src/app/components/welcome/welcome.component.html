@@ -1,0 +1,26 @@
+<div class="min-w-screen min-h-screen bg-gray-900 flex items-center justify-center px-5 py-5">
+  <div class="bg-indigo-600 text-white rounded-lg shadow-xl p-5 w-full max-w-4xl flex md:flex-row flex-col">
+    <!-- Image Container -->
+    <div class="md:w-1/4 p-3 flex justify-center items-center">
+      <img src="assets/welcome/image.png" alt="Welcome Image" class="w-48 h-auto rounded-lg">
+    </div>
+    <!-- Text Content -->
+    <div class="md:w-3/4 p-3">
+      <h3 class="text-2xl">Welcome, {{userUsername}}</h3>
+      <h5 class="text-xl mb-3">Select the section that suits you from the navbar.</h5>
+      <p class="text-sm text-indigo-200">
+        BlackJack Safer aims to transform online gambling by reducing addiction risks and educating players on the best
+        strategies. This goal is achieved through a humane and responsible balance management system, approving or
+        rejecting each reload operation, thus protecting users from compulsive behaviors while promoting a more
+        conscious and controlled approach to gaming. The software employs modern technologies and early intervention
+        strategies to ensure a balanced and safe gaming experience, maintaining the fun of BlackJack without
+        compromising player health and well-being.
+      </p>
+      <div class="text-center md:text-left mt-4">
+        <button (click)="goToProfile()"
+          class="w-full md:w-auto py-2 px-4 rounded text-white bg-indigo-900 hover:bg-gray-900 focus:outline-none transition duration-150 ease-in-out">Go
+          to Profile</button>
+      </div>
+    </div>
+  </div>
+</div>
