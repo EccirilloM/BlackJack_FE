@@ -1,1 +1,1 @@
-export const globalBackendUrl: string = 'http://localhost:8080/api/v1/';
+export const globalBackendUrl: string = 'https://bjsafer-20e095b91f94.herokuapp.com/api/v1/';
