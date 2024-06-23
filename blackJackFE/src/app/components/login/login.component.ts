@@ -69,7 +69,7 @@ export class LoginComponent {
         this.router.navigate(['/homepage/welcome']);
       },
       error: (error) => {
-        this.toastr.error('Error while login!');
+        this.toastr.error(error.error.message);
         console.error(error);
       }
     });

@@ -74,7 +74,7 @@ export class RegistrationComponent {
       },
       error: (err: HttpErrorResponse) => {
         console.error(err);
-        this.toastr.error(err.error.message || 'Errore durante la registration');
+        this.toastr.error(err.error.message);
       }
     });
   }
