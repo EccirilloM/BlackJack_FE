@@ -39,6 +39,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     console.log("DashboardComponent initialized");
     this.setCurrentTime();
+    this.getUserBalance();
   }
 
   // -----------------------------------------------------------------------------------
@@ -85,7 +86,7 @@ export class DashboardComponent implements OnInit {
     if (this.userBalance >= minBet) {
       this.router.navigate(['/homepage/table', tipoTavolo]);
     } else {
-      this.toastr.error('PD to get access to this table, user balance: ' + this.userBalance, 'Error');
+      this.toastr.error('Insufficient balance to access this table, user balance: ' + this.userBalance, 'Error');
     }
   }
 }
