@@ -3,11 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "heroku-postbuild": "ng build --configuration=production && npm install -g http-server-spa",
-    "start": "http-server-spa dist/black-jack-fe index.html",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "heroku-postbuild": "ng build --configuration=production",
+    "start": "http-server dist/black-jack-fe -p $PORT"
   },
   "private": true,
   "dependencies": {
@@ -26,7 +23,8 @@
     "ngx-toastr": "^16.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.12.0"
+    "zone.js": "~0.12.0",
+    "http-server": "^14.1.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.2.10",
@@ -50,4 +48,3 @@
     "npm": "10.x"
   }
 }
-
