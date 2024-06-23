@@ -85,9 +85,7 @@ export class DashboardComponent implements OnInit {
     if (this.userBalance >= minBet) {
       this.router.navigate(['/homepage/table', tipoTavolo]);
     } else {
-      console.log("minBet: " + minBet);
-      console.log("userBalance: " + this.userBalance);
-      this.toastr.error('Insufficient Balance to get access to this table', 'Error');
+      this.toastr.error('Insufficient Balance to get access to this table, user balance: ' + this.userBalance, 'Error');
     }
   }
 }
