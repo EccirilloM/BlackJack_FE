@@ -82,6 +82,9 @@ export class DashboardComponent implements OnInit {
         minBet = 0;
     }
 
+    console.log("minBet: " + minBet);
+    console.log("userBalance: " + this.userBalance);
+
     if (this.userBalance >= minBet) {
       this.router.navigate(['/homepage/table', tipoTavolo]);
     } else {
